@@ -1,0 +1,9 @@
+body{
+margin:150px;
+padding:0;
+}
+
+#test{
+margin:auto;
+display: table;
+}
