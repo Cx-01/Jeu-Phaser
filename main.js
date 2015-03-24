@@ -48,10 +48,10 @@ gameState.main.prototype={
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		// check les collisions aux murs sauf celui du bottom-> on perd une vie
-    	this.game.physics.arcade.checkCollision.down = false;
+    this.game.physics.arcade.checkCollision.down = false;
 
-    	// crée une variable pour les touches
-  		//this.cursor = game.input.keyboard.createCursorKeys();
+    // crée une variable pour les touches
+  	//this.cursor = game.input.keyboard.createCursorKeys();
 
 		//créer le background à l'état de sprite
 		this.background = this.game.add.tileSprite(0,0,960,720, 'background');
@@ -68,8 +68,8 @@ gameState.main.prototype={
 		//brik
 		//this.brick = this.game.add.sprite(430,50,'brick');
 		this.brick = game.add.group();
-   		this.brick.enableBody = true;
-    	this.brick.physicsBodyType = Phaser.Physics.ARCADE;
+   	this.brick.enableBody = true;
+    this.brick.physicsBodyType = Phaser.Physics.ARCADE;
 
 
     	var bricks;
@@ -114,15 +114,15 @@ gameState.main.prototype={
     	//balle
 
      
-    	this.balle = this.game.add.sprite(430,625, 'balle'); 
-    	this.game.physics.arcade.enableBody(this.balle);
-      this.balle.anchor.setTo(0.5);
-      //this.balle.body.velocity.x = 300;
-      //this.balle.body.velocity.y = 300;
+    this.balle = this.game.add.sprite(430,625, 'balle'); 
+    this.game.physics.arcade.enableBody(this.balle);
+    this.balle.anchor.setTo(0.5);
+    //this.balle.body.velocity.x = 300;
+    //this.balle.body.velocity.y = 300;
 
-      this.balle.body.collideWorldBounds = true,
-      this.balle.body.bounce.set(1);
-      this.game.input.onDown.add(this.releaseBall, this);
+    this.balle.body.collideWorldBounds = true,
+    this.balle.body.bounce.set(1.5);
+    this.game.input.onDown.add(this.releaseBall, this);
 
     	
 	},//create
@@ -141,7 +141,7 @@ gameState.main.prototype={
 	update: function(){
 
 		  //répétition du background
-		  this.background.tilePosition.x += 0.5; //le nombre est pour la vitesse
+		  this.background.tilePosition.x += 0.3; //le nombre est pour la vitesse
 
     	//mouse
 		  this.paddle.body.x = this.game.input.worldX - this.paddle.body.width / 2;
@@ -173,10 +173,6 @@ gameState.main.prototype={
   		brick.kill();
 	},
 
-	restart: function() {
-		// On redémarre la partie
-		this.game.state.start('main');
-	}
 
 };//Protoype
 
