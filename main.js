@@ -125,7 +125,7 @@ gameState.main.prototype={
     //this.balle.body.velocity.y = 300;
 
     this.balle.body.collideWorldBounds = true,
-    this.balle.body.bounce.set(0.5);
+    this.balle.body.bounce.set(1);
     this.game.input.onDown.add(this.releaseBall, this);
 
     	
