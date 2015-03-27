@@ -52,7 +52,7 @@ gameState.main.prototype={
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		// check les collisions aux murs sauf celui du bottom-> on perd une vie
-    this.game.physics.arcade.checkCollision.down = false;
+    this.game.physics.arcade.checkCollision.down = true;
 
     // crée une variable pour les touches
   	//this.cursor = game.input.keyboard.createCursorKeys();
