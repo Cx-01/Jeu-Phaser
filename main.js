@@ -29,11 +29,6 @@ gameState.load.prototype = {
 		//balle
 		this.game.load.image('balle', 'img/balle.png');
 		
-		//lune
-		this.game.load.image('lune', 'img/lune2.png');
-
-		//arrow
-		this.game.load.image('arrow', 'img/triangle.png');
 
 	},//preload
 
@@ -52,7 +47,8 @@ gameState.main.prototype={
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		// check les collisions aux murs sauf celui du bottom-> on perd une vie
-    this.game.physics.arcade.checkCollision.down = true;
+    this.game.physics.arcade.checkCollision.up = true;
+     this.game.physics.arcade.checkCollision.down = true;
 
     // crée une variable pour les touches
   	//this.cursor = game.input.keyboard.createCursorKeys();
@@ -133,12 +129,12 @@ gameState.main.prototype={
 
 	releaseBall: function(){
      if (balleOnPaddle)
-    {
+      {
         balleOnPaddle = false;
         this.balle.body.velocity.y = -300;
         this.balle.body.velocity.x = -75;
         
-    }
+      }
 
 	},//re
 
@@ -147,35 +143,41 @@ gameState.main.prototype={
 		  //répétition du background
 		  this.background.tilePosition.x += 0.3; //le nombre est pour la vitesse
 
-    	//mouse
+    	/*// Mouvement via la souris methode 1
 		  this.paddle.body.x = this.game.input.worldX - this.paddle.body.width / 2;
 
     	if (this.paddle.body.x <= 0)
     	{
-       	 this.paddle.body.x = 0;
+       	this.paddle.body.x = 0;
    		}
    		 else if (this.paddle.body.x > this.game.width - 100 )
    	 	{
-   	   	 this.paddle.body.x = this.game.width - 100;
-    	}
+   	   	this.paddle.body.x = this.game.width - 100;
+    	}*/
 
-       if (balleOnPaddle)
-       {
-          this.balle.body.x = this.paddle.x;
-       }
 
-    	 //balle
-    	 this.game.physics.arcade.collide(this.paddle, this.balle);
+      //mouvemet via ma souris methode 2
+      this.paddle.position.x = this.game.input.mousePointer.x;
 
-    	 // Call the 'hit' function when the ball hit a brick
-		   this.game.physics.arcade.collide(this.balle, this.brick, this.hit, null, this);
+      //balle sur la pallette
+      if (balleOnPaddle)
+      {
+        this.balle.body.x = this.paddle.x;
+      }
+
+
+    	//balle et la pallete 'colission'
+    	this.game.physics.arcade.collide(this.paddle, this.balle);
+
+    	// Call the 'hit' function when the ball hit a brick
+		  this.game.physics.arcade.collide(this.balle, this.brick, this.hit, null, this);
 
 	},//update
 
 	hit: function(balle, brick) {
   		// When the ball hits a brick, kill the brick
   		brick.kill();
-	},
+	},//hit
 
 
 };//Protoype
