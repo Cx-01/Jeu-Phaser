@@ -138,6 +138,7 @@ gameState.main.prototype={
 
     this.balle.body.collideWorldBounds = true,
     this.balle.body.bounce.set(1);
+    this.balle.checkWorldBounds = true;
     this.game.input.onDown.add(this.releaseBall, this);
 
     this.balle.events.onOutOfBounds.add(this.ballePerdu, this);
@@ -216,7 +217,7 @@ gameState.main.prototype={
     {
     balleOnPaddle = true;
 
-    this.balle.reset(this.paddle.body);
+    this.balle.reset(this.paddle.body.x +150, this.paddle.y - 25);
 
     //ball.animations.stop();
    }
