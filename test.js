@@ -42,7 +42,7 @@ gameState.load.prototype = {
 
  var balleOnPaddle = true;
 
- var lives = 9;
+ var lives = 8;
  var score = 0;
 
  var scoreText;
@@ -143,7 +143,7 @@ gameState.main.prototype={
     this.balle.events.onOutOfBounds.add(this.ballePerdu, this);
 
     scoreText = game.add.text(32, 680, 'score: 0', { font: "20px Verdana", fill: "#ffffff", align: "left" });
-    livesText = game.add.text(780, 680, 'lives: 9', { font: "20px Verdana", fill: "#ffffff", align: "left" });
+    livesText = game.add.text(780, 680, 'lives: 8', { font: "20px Verdana", fill: "#ffffff", align: "left" });
 
     	
 	},//create
