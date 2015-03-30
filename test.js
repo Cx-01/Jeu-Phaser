@@ -42,11 +42,12 @@ gameState.load.prototype = {
 
  var balleOnPaddle = true;
 
- var lives = 8;
- var score = 0;
+ var lives = 4;
+ //var score = 0;
 
  var scoreText;
  var livesText;
+ var introText;
 
 gameState.main= function(){};
 gameState.main.prototype={
@@ -73,9 +74,6 @@ gameState.main.prototype={
 		this.paddle.body.immovable = true;
 		this.paddle.anchor.setTo(0.5, 0.5);
 		//this.paddle.body.collideWorldBounds = true;
-
-
-
 
     //particule
     this.particule = this.game.add.group();
@@ -143,10 +141,12 @@ gameState.main.prototype={
 
     this.balle.events.onOutOfBounds.add(this.ballePerdu, this);
 
-    scoreText = game.add.text(32, 680, 'score: 0', { font: "20px Verdana", fill: "#ffffff", align: "left" });
-    livesText = game.add.text(780, 680, 'lives: 8', { font: "20px Verdana", fill: "#ffffff", align: "left" });
+    this.score = 0;
+    this.scoreText = this.game.add.text(32, 680, 'score: 0', { font: "20px arial", fill: "#00ffe4", align: "left" });
+    livesText = this.game.add.text(780, 680, 'lives: 4', { font: "20px verdana", fill: "#00ffe4", align: "left" });
+    introText = this.game.add.text(350, 470, ' Click to start ', { font: "30px verdana", fill: "#ffffff", align: "center" });
+    //introText.anchor.setTo(0.5, 0.5);
 
-    	
 	},//create
 
 	releaseBall: function(){
@@ -155,7 +155,7 @@ gameState.main.prototype={
         balleOnPaddle = false;
         this.balle.body.velocity.y = -300;
         this.balle.body.velocity.x = -75;
-        
+        introText.visible = false;
       }
 
 	},//re
@@ -163,7 +163,7 @@ gameState.main.prototype={
 	update: function(){
 
 		  //répétition du background
-		  //this.background.tilePosition.x += 0.3; //le nombre est pour la vitesse
+		  this.background.tilePosition.x += 0.3; //le nombre est pour la vitesse
 
     	/*// Mouvement via la souris methode 1
 		  this.paddle.body.x = this.game.input.worldX - this.paddle.body.width / 2;
@@ -193,9 +193,8 @@ gameState.main.prototype={
       //balle sur la pallette
       if (balleOnPaddle)
       {
-        this.balle.body.x = this.paddle.x;
+        this.balle.body.x = this.paddle.x -10;
       }
-
 
     	//balle et la pallete 'colission'
     	this.game.physics.arcade.collide(this.paddle, this.balle);
@@ -211,39 +210,31 @@ gameState.main.prototype={
 
     if (lives === 0)
     {
-     gameOver();
+     this.gameOver();
     }
     else
     {
     balleOnPaddle = true;
 
-    this.balle.reset(this.paddle.body.x +150, this.paddle.y - 25);
-
-    //ball.animations.stop();
+    this.balle.reset(this.paddle.body.x + 25, this.paddle.y - 25);
    }
-
+   
   },//balleperdu
 
   gameOver: function() {
-
-    ball.body.velocity.setTo(0, 0);
-    
+    this.balle.body.velocity.setTo(0, 0);
     introText.text = 'Game Over!';
     introText.visible = true;
 
   },
 
 	hit: function(balle, brick) {
-  		// When the ball hits a brick, kill the brick
+  		//Qd a balle touches les briques
   		brick.kill();
-
-      score += 10;
-
-      scoreText.text = 'score: ' + score;
+      this.score += 10;
+      this.scoreText.text = 'score: ' + this.score;
 
 	},//hit
-
-
 
 };//Protoype
 
