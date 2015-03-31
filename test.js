@@ -31,6 +31,11 @@ gameState.load.prototype = {
 
     //particule
     this.game.load.image('particule', 'img/particule.png');
+
+    //son balle une fois les briques toucher
+    this.game.load.audio('hitBrick', 'sounds/hit.wav');
+
+    this.game.load.audio('music', 'sounds/music.wav');
 		
 
 	},//preload
@@ -63,6 +68,13 @@ gameState.main.prototype={
     // crée une variable pour les touches
   	//this.cursor = game.input.keyboard.createCursorKeys();
 
+    //son balle -> brique
+    this.hitBrick = this.game.add.audio('hitBrick');
+
+    this.music = this.game.add.audio('music');
+    this.music.play();//ne se repete pas
+
+   
 		//créer le background à l'état de sprite
 		this.background = this.game.add.tileSprite(0,0,960,720, 'background');
 		this.background.width = this.game.width*4; 
@@ -158,6 +170,11 @@ gameState.main.prototype={
         introText.visible = false;
       }
 
+      //qd la balle part le son marche
+      /*if ( this.releaseBall = true){
+        this.hitBrick.play();
+      }*/
+
 	},//re
 
 	update: function(){
@@ -204,6 +221,19 @@ gameState.main.prototype={
 
 	},//update
 
+	hit: function(balle, brick) {
+  		//Qd a balle touches les briques
+  		brick.kill();
+      if (this.balle.event = brick.kill() ){
+        this.hitBrick.play();
+      }
+
+      this.score += 10;
+      this.scoreText.text = 'score: ' + this.score;
+
+	},//hit
+
+
   ballePerdu: function(){
     lives--;
     livesText.text = 'lives: ' + lives;
@@ -221,6 +251,7 @@ gameState.main.prototype={
    
   },//balleperdu
 
+
   gameOver: function() {
     this.balle.body.velocity.setTo(0, 0);
     introText.text = 'Game Over!';
@@ -228,13 +259,6 @@ gameState.main.prototype={
 
   },
 
-	hit: function(balle, brick) {
-  		//Qd a balle touches les briques
-  		brick.kill();
-      this.score += 10;
-      this.scoreText.text = 'score: ' + this.score;
-
-	},//hit
 
 };//Protoype
 
