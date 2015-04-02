@@ -47,7 +47,7 @@ gameState.load.prototype = {
 
  var balleOnPaddle = true;
 
- var lives = 4;
+ var lives = 3;
  //var score = 0; // peut etre utiliser en creant une variable ou en utilisant this.score voir ligne 156
 
  var scoreText;
@@ -154,7 +154,7 @@ gameState.main.prototype={
 
     this.score = 0;
     this.scoreText = this.game.add.text(32, 680, 'score: 0', { font: "20px arial", fill: "#00ffe4", align: "center" });
-    livesText = this.game.add.text(780, 680, 'lives: 4', { font: "20px arial", fill: "#00ffe4", align: "center" });
+    livesText = this.game.add.text(780, 680, 'lives: 3', { font: "20px arial", fill: "#00ffe4", align: "center" });
     introText = this.game.add.text(350, 470, ' Click to start ', { font: "30px arial", fill: "#ffffff", align: "center" });
     //introText.anchor.setTo(0.5, 0.5);
 
@@ -179,7 +179,7 @@ gameState.main.prototype={
 	update: function(){
 
 		  //répétition du background
-		  this.background.tilePosition.x += 0.3; //le nombre est pour la vitesse
+		  this.background.tilePosition.x += 0.2; //le nombre est pour la vitesse
 
     	/*// Mouvement via la souris methode 1
 		  this.paddle.body.x = this.game.input.worldX - this.paddle.body.width / 2;
