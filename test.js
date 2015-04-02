@@ -92,6 +92,7 @@ gameState.main.prototype={
     this.particule.enableBody = true;
 
 
+		//brick
 		//this.brick = this.game.add.sprite(430,50,'brick');
 		this.brick = this.game.add.group();
    	this.brick.enableBody = true;
@@ -152,9 +153,9 @@ gameState.main.prototype={
     this.balle.events.onOutOfBounds.add(this.ballePerdu, this);
 
     this.score = 0;
-    this.scoreText = this.game.add.text(32, 680, 'score: 0', { font: "20px arial", fill: "#00ffe4", align: "left" });
-    livesText = this.game.add.text(780, 680, 'lives: 4', { font: "20px verdana", fill: "#00ffe4", align: "left" });
-    introText = this.game.add.text(350, 470, ' Click to start ', { font: "30px verdana", fill: "#ffffff", align: "center" });
+    this.scoreText = this.game.add.text(32, 680, 'score: 0', { font: "20px arial", fill: "#00ffe4", align: "center" });
+    livesText = this.game.add.text(780, 680, 'lives: 4', { font: "20px arial", fill: "#00ffe4", align: "center" });
+    introText = this.game.add.text(350, 470, ' Click to start ', { font: "30px arial", fill: "#ffffff", align: "center" });
     //introText.anchor.setTo(0.5, 0.5);
 
 	},//create
@@ -194,9 +195,9 @@ gameState.main.prototype={
 
 
       //mouvemet via ma souris methode 2
-      this.paddle.position.x = this.game.input.mousePointer.x;
+      this.paddle.position.x = this.game.input.mousePointer.x; // positionne le padlle en x et suit la souris sans quitter l'axe x donné
 
-      if (this.paddle.x < 50)
+      if (this.paddle.x < 50) //pert au paddle de pas dépasser l'écran du jeu ( a voir si pas autre méthode)
         {
           this.paddle.x = 50;
         }
@@ -208,11 +209,11 @@ gameState.main.prototype={
       //balle sur la pallette
       if (balleOnPaddle)
       {
-        this.balle.body.x = this.paddle.x -10;
+        this.balle.body.x = this.paddle.x -10; //définit la position la balle sur la pallette 
       }
 
     	//balle et la pallete 'colission'
-    	this.game.physics.arcade.collide(this.paddle, this.balle);
+    	this.game.physics.arcade.collide(this.paddle, this.balle); // je devrai ajouter 1 nvelle fonction comme this.hit mais avc la balle et la palette
 
     	// Collision de la balle et brick==> hit function
 		  this.game.physics.arcade.collide(this.balle, this.brick, this.hit, null, this);
@@ -237,7 +238,7 @@ gameState.main.prototype={
 
     if (lives === 0)
     {
-     this.gameOver();
+     this.gameOver(), this.restart();
     }
     else
     {
@@ -250,11 +251,18 @@ gameState.main.prototype={
 
 
   gameOver: function() {
-    this.balle.body.velocity.setTo(0, 0);
+    //this.balle.body.velocity.setTo(0, 0);
     introText.text = 'Game Over!';
     introText.visible = true;
 
   },
+
+  restart: function() {
+    balleOnPaddle = true;
+    lives = 4;
+    game.state.start('main');
+   
+  }
 
 
 };//Protoype
