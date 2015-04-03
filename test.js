@@ -90,8 +90,7 @@ gameState.main.prototype={
     this.particule = this.game.add.group();
     this.particule.physicsBodyType = Phaser.Physics.ARCADE;
     this.particule.enableBody = true;
-
-
+   
 		//brick
 		//this.brick = this.game.add.sprite(430,50,'brick');
 		this.brick = this.game.add.group();
@@ -213,18 +212,30 @@ gameState.main.prototype={
       }
 
     	//balle et la pallete 'colission'
-    	this.game.physics.arcade.collide(this.paddle, this.balle); // je devrai ajouter 1 nvelle fonction comme this.hit mais avc la balle et la palette
-
+    	this.game.physics.arcade.collide(this.paddle, this.balle,this.paddleHit, null, this); // je devrai ajouter 1 nvelle fonction comme this.hit mais avc la balle et la palette
     	// Collision de la balle et brick==> hit function
 		  this.game.physics.arcade.collide(this.balle, this.brick, this.hit, null, this);
 
 	},//update
+
+  paddleHit: function(paddle, balle){
+
+    //le sens du mouvement de la balle , vers la gauche ou vers la droite ( test)
+    if (this.balle.position.x < this.paddle.body.x + 50){
+      this.balle.body.velocity.x += -150 * 2;
+    }
+    else if (this.balle.position.x > this.paddle.body.x - 50){
+      this.balle.body.velocity.x += 150 * 2;
+    }
+
+  },//paddleHit
 
 	hit: function(balle, brick) {
   		//Qd a balle touches les briques
   		brick.kill();
       if (this.balle.event = brick.kill() ){
         this.hitBrick.play();
+       
       }
 
       this.score += 10;
@@ -259,7 +270,7 @@ gameState.main.prototype={
 
   restart: function() {
     balleOnPaddle = true;
-    lives = 4;
+    lives = 3;
     game.state.start('main');
    
   }
