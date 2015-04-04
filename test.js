@@ -24,7 +24,7 @@ gameState.load.prototype = {
 		this.game.load.image('paddle', 'img/paddle.png');
 
 		//brik
-		this.game.load.image('brick', 'img/brik.png');
+		this.game.load.image('brick', 'img/brik2.png');
 
 		//balle
 		this.game.load.image('balle', 'img/balle.png');
@@ -71,8 +71,8 @@ gameState.main.prototype={
     //son balle -> brique
     this.hitBrick = this.game.add.audio('hitBrick');
 
-    this.music = this.game.add.audio('music');
-    this.music.play();//ne se repete pas
+    /*this.music = this.game.add.audio('music');
+    this.music.play();//ne se repete pas*/
    
 		//créer le background à l'état de sprite
 		this.background = this.game.add.tileSprite(0,0,960,720, 'background');
@@ -102,10 +102,10 @@ gameState.main.prototype={
 
    		for (var y = 0; y < 2; y++)// nombre de colonne en y
     	{
-        	for (var x = 0; x < 7; x++) // nombre de colonne en x
+        	for (var x = 0; x < 9; x++) // nombre de colonne en x
         	{
            		bricks1 =this.
-           		brick.create(70 + (x * 120), 50 + (y * 40), 'brick' );// Position et espacement des brick
+           		brick.create(140 + (x * 90), 50 + (y * 30), 'brick' );// Position et espacement(y*nbre) des brick
            		bricks1.body.bounce.set(1);
            		bricks1.body.immovable = true;
         	}
@@ -118,7 +118,7 @@ gameState.main.prototype={
         	for (var x = 0; x < 5; x++) // nombre de colonne en x
         	{
            		bricks1 =this.
-           		brick.create(190 + (x * 120), 180 + (y * 40), 'brick' );// Position et espacement des brick
+           		brick.create(230 + (x * 90), 130 + (y * 30), 'brick' );// Position et espacement des brick
            		bricks1.body.bounce.set(1);
            		bricks1.body.immovable = true;
         	}
@@ -128,10 +128,10 @@ gameState.main.prototype={
 
    		for (var y = 0; y < 2; y++)// nombre de colonne en y
     	{
-        	for (var x = 0; x < 7; x++) // nombre de colonne en x
+        	for (var x = 0; x < 9; x++) // nombre de colonne en x
         	{
            		bricks1 =this.
-           		brick.create(70 + (x * 120), 350 + (y * 40), 'brick' );// Position et espacement des brick
+           		brick.create(140 + (x * 90), 250 + (y * 30), 'brick' );// Position et espacement des brick
            		bricks1.body.bounce.set(1);
            		bricks1.body.immovable = true;
         	}
@@ -222,10 +222,10 @@ gameState.main.prototype={
 
     //le sens du mouvement de la balle , vers la gauche ou vers la droite ( test)
     if (this.balle.position.x < this.paddle.body.x + 50){
-      this.balle.body.velocity.x += -150 * 2;
+      this.balle.body.velocity.x += -150 * 1.5;
     }
     else if (this.balle.position.x > this.paddle.body.x - 50){
-      this.balle.body.velocity.x += 150 * 2;
+      this.balle.body.velocity.x += 150 * 1.5;
     }
 
   },//paddleHit
@@ -235,7 +235,6 @@ gameState.main.prototype={
   		brick.kill();
       if (this.balle.event = brick.kill() ){
         this.hitBrick.play();
-       
       }
 
       this.score += 10;
