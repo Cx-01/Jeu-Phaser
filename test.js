@@ -35,6 +35,10 @@ gameState.load.prototype = {
     //arrow
     this.game.load.image('arrow', 'img/arrow.png');
 
+    //lazer
+    this.game.load.image('lazer', 'img/lazer.png'); // a faire
+
+
     //son balle une fois les briques toucher
     this.game.load.audio('hitBrick', 'sounds/hit.wav');
 
@@ -83,10 +87,9 @@ gameState.main.prototype={
 		this.background.height = this.game.height*4;
 
     this.arrow = this.game.add.sprite(250, 160, 'arrow');
-    this.game.physics.arcade.enable(this.arrow);
-    this.arrow.body.immovable = true;
+    //this.game.physics.arcade.enable(this.arrow);
+    //this.arrow.body.immovable = true;
     this.arrow.anchor.setTo(0.1, 0.5); 
-
 
 		//paddle
 		this.paddle = this.game.add.sprite(this.game.world.centerX, 650, 'paddle');
