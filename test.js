@@ -32,6 +32,9 @@ gameState.load.prototype = {
     //particule
     this.game.load.image('particule', 'img/particule.png');
 
+    //arrow
+    this.game.load.image('arrow', 'img/arrow.png');
+
     //son balle une fois les briques toucher
     this.game.load.audio('hitBrick', 'sounds/hit.wav');
 
@@ -79,6 +82,12 @@ gameState.main.prototype={
 		this.background.width = this.game.width*4; 
 		this.background.height = this.game.height*4;
 
+    this.arrow = this.game.add.sprite(250, 160, 'arrow');
+    this.game.physics.arcade.enable(this.arrow);
+    this.arrow.body.immovable = true;
+    this.arrow.anchor.setTo(0.1, 0.5); 
+
+
 		//paddle
 		this.paddle = this.game.add.sprite(this.game.world.centerX, 650, 'paddle');
 		this.game.physics.arcade.enable(this.paddle);
@@ -105,7 +114,7 @@ gameState.main.prototype={
         	for (var x = 0; x < 9; x++) // nombre de colonne en x
         	{
            		bricks1 =this.
-           		brick.create(140 + (x * 90), 50 + (y * 30), 'brick' );// Position et espacement(y*nbre) des brick
+           		brick.create(90 + (x * 90), 50 + (y * 30), 'brick' );// Position et espacement(y*nbre) des brick
            		bricks1.body.bounce.set(1);
            		bricks1.body.immovable = true;
         	}
@@ -118,7 +127,7 @@ gameState.main.prototype={
         	for (var x = 0; x < 5; x++) // nombre de colonne en x
         	{
            		bricks1 =this.
-           		brick.create(230 + (x * 90), 130 + (y * 30), 'brick' );// Position et espacement des brick
+           		brick.create(450 + (x * 90), 125 + (y * 30), 'brick' );// Position et espacement des brick
            		bricks1.body.bounce.set(1);
            		bricks1.body.immovable = true;
         	}
@@ -130,12 +139,26 @@ gameState.main.prototype={
     	{
         	for (var x = 0; x < 9; x++) // nombre de colonne en x
         	{
-           		bricks1 =this.
-           		brick.create(140 + (x * 90), 250 + (y * 30), 'brick' );// Position et espacement des brick
-           		bricks1.body.bounce.set(1);
-           		bricks1.body.immovable = true;
+           		bricks2 =this.
+           		brick.create(90 + (x * 90), 230 + (y * 30), 'brick' );// Position et espacement des brick
+           		bricks2.body.bounce.set(1);
+           		bricks2.body.immovable = true;
         	}
     	}
+
+      var bricks3;
+
+      for (var y = 0; y < 3; y++)// nombre de colonne en y
+      {
+          for (var x = 0; x < 6; x++) // nombre de colonne en x
+          {
+              bricks3 =this.
+              brick.create(90 + (x * 90), 310 + (y * 30), 'brick' );// Position et espacement des brick
+              bricks3.body.bounce.set(1);
+              bricks3.body.immovable = true;
+          }
+      }
+
 
     //balle 
     this.balle = this.game.add.sprite(430,625, 'balle'); 
@@ -147,7 +170,7 @@ gameState.main.prototype={
     this.balle.body.collideWorldBounds = true,
     this.balle.body.bounce.set(1);
     this.balle.checkWorldBounds = true;
-    this.game.input.onDown.add(this.releaseBall, this);
+    this.game.input.onTap.add(this.releaseBall, this);
 
     this.balle.events.onOutOfBounds.add(this.ballePerdu, this);
 
@@ -180,6 +203,8 @@ gameState.main.prototype={
 		  //répétition du background
 		  this.background.tilePosition.x += 0.2; //le nombre est pour la vitesse
 
+      this.arrow.rotation = this.game.physics.arcade.angleBetween(this.arrow, this.balle);
+
     	/*// Mouvement via la souris methode 1
 		  this.paddle.body.x = this.game.input.worldX - this.paddle.body.width / 2;
 
@@ -211,7 +236,7 @@ gameState.main.prototype={
         this.balle.body.x = this.paddle.x -10; //définit la position la balle sur la pallette 
       }
 
-    	//balle et la pallete 'colission'
+    	//balle et la pallete 'collision'
     	this.game.physics.arcade.collide(this.paddle, this.balle,this.paddleHit, null, this); // je devrai ajouter 1 nvelle fonction comme this.hit mais avc la balle et la palette
     	// Collision de la balle et brick==> hit function
 		  this.game.physics.arcade.collide(this.balle, this.brick, this.hit, null, this);
@@ -222,10 +247,10 @@ gameState.main.prototype={
 
     //le sens du mouvement de la balle , vers la gauche ou vers la droite ( test)
     if (this.balle.position.x < this.paddle.body.x + 50){
-      this.balle.body.velocity.x += -150 * 1.5;
+      this.balle.body.velocity.x += -150 * 1.1;
     }
     else if (this.balle.position.x > this.paddle.body.x - 50){
-      this.balle.body.velocity.x += 150 * 1.5;
+      this.balle.body.velocity.x += 150 * 1.1;
     }
 
   },//paddleHit
@@ -261,9 +286,10 @@ gameState.main.prototype={
 
 
   gameOver: function() {
-    //this.balle.body.velocity.setTo(0, 0);
+    this.balle.body.velocity.setTo(0, 0);
     introText.text = 'Game Over!';
     introText.visible = true;
+
 
   },
 
