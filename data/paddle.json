@@ -1,0 +1,53 @@
+{ "frames": {
+
+"paddle": {
+	"frame": {"x":2,"y":2,"w":100,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":25},
+	"sourceSize": {"w":100,"h":25}
+},
+"paddle1": {
+	"frame": {"x":2,"y":29,"w":100,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":25},
+	"sourceSize": {"w":100,"h":25}
+},
+"paddle2": {
+	"frame": {"x":2,"y":56,"w":100,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":25},
+	"sourceSize": {"w":100,"h":25}
+},
+"paddle3": {
+	"frame": {"x":2,"y":83,"w":100,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":25},
+	"sourceSize": {"w":100,"h":25}
+},
+"paddle4": {
+	"frame": {"x":2,"y":110,"w":100,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":25},
+	"sourceSize": {"w":100,"h":25}
+},
+"paddle5": {
+	"frame": {"x":2,"y":137,"w":100,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":25},
+	"sourceSize": {"w":100,"h":25}
+}
+},
+"meta": {
+	"app": "http://www.mokgames.com/texturepacker/",
+	"version": "1.0",
+	"image": "paddle0.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":256},
+	"scale": 1
+}}
