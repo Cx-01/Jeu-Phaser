@@ -21,7 +21,7 @@ gameState.load.prototype = {
 		this.game.load.image('background', 'img/background2.png');
 
 		//paddle
-		this.game.load.image('paddle', 'img/paddle.png');
+		this.game.load.atlasJSONHash('paddle', 'img/paddle0.png','data/paddle.json');
 
 		//brik
 		this.game.load.image('brick', 'img/brik2.png');
@@ -97,6 +97,8 @@ gameState.main.prototype={
 		this.paddle.body.immovable = true;
 		this.paddle.anchor.setTo(0.5, 0.5);
 		//this.paddle.body.collideWorldBounds = true;
+    this.paddle.animations.add('run');
+    this.paddle.animations.play('run',5, true);
 
     //particule A FAIRE..
     this.particule = this.game.add.group();
