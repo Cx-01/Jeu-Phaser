@@ -248,7 +248,7 @@ gameState.main.prototype={
 
   paddleHit: function(paddle, balle){
 
-    //le sens du mouvement de la balle , vers la gauche ou vers la droite ( test)
+    //le sens du mouvement de la balle , vers la gauche ou vers la droite + augmentation de la vitesse ( test)
     if (this.balle.position.x < this.paddle.body.x + 50){
       this.balle.body.velocity.x += -150 * 1.1;
     }
@@ -261,6 +261,7 @@ gameState.main.prototype={
 	hit: function(balle, brick) {
   		//Qd a balle touches les briques
   		brick.kill();
+      //test--> essaye d'activer un son qd la balle touche les briques --> ok
       if (this.balle.event = brick.kill() ){
         this.hitBrick.play();
       }
