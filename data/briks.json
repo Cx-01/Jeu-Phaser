@@ -1,0 +1,46 @@
+{ "frames": {
+
+"brik": {
+	"frame": {"x":2,"y":2,"w":75,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":19},
+	"sourceSize": {"w":75,"h":19}
+},
+"brik2": {
+	"frame": {"x":2,"y":23,"w":75,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":19},
+	"sourceSize": {"w":75,"h":19}
+},
+"brik3": {
+	"frame": {"x":2,"y":44,"w":75,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":19},
+	"sourceSize": {"w":75,"h":19}
+},
+"brik4": {
+	"frame": {"x":2,"y":65,"w":75,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":19},
+	"sourceSize": {"w":75,"h":19}
+},
+"brik5": {
+	"frame": {"x":2,"y":86,"w":75,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":19},
+	"sourceSize": {"w":75,"h":19}
+}
+},
+"meta": {
+	"app": "http://www.mokgames.com/texturepacker/",
+	"version": "1.0",
+	"image": "brik2.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":128},
+	"scale": 1
+}}
