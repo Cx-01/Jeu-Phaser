@@ -246,6 +246,11 @@ gameState.main.prototype={
     	// Collision de la balle et brick==> hit function
 		  this.game.physics.arcade.collide(this.balle, this.brick, this.hit, null, this);
 
+      //restart le jeu, apres avoir obtenu le score souhaité ( redemarre direct --> trouver comment faire pour mettre un timer)
+      if (this.score == 690){
+        this.restart();
+      }
+
 	},//update
 
   paddleHit: function(paddle, balle){
