@@ -9,31 +9,34 @@ var gameState= {};
 
 gameState.load = function(){};
 gameState.load.prototype = {
-	preload: function() {
-		this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		this.game.scale.setShowAll();
-		window.addEventListener('resize', function () {
-		this.game.scale.refresh();
-		});
-		this.game.scale.refresh();
+  preload: function() {
+    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.game.scale.setShowAll();
+    window.addEventListener('resize', function () {
+    this.game.scale.refresh();
+    });
+    this.game.scale.refresh();
 
-		//Background
-		this.game.load.image('background', 'img/background2.png');
+    //Background
+    this.game.load.image('background', 'img/background2.png');
 
-		//paddle
-		this.game.load.image('paddle', 'img/paddle.png');
+    //paddle
+    this.game.load.image('paddle', 'img/paddle.png');
 
-		//brik
-		this.game.load.image('brick', 'img/brik3.png');
+    //wall
+    this.game.load.image('wall', 'img/wall.png');
 
-		//balle
-		this.game.load.image('balle', 'img/balle.png');
+    //brik
+    this.game.load.image('brick', 'img/brik3.png');
+
+    //balle
+    this.game.load.image('balle', 'img/balle.png');
 
     //particule
     this.game.load.image('particule', 'img/particule.png');
 
     //arrow
-    this.game.load.image('arrow', 'img/arrow.png');
+    this.game.load.image('arrow', 'img/canon.png');
 
     //lazer
     this.game.load.image('lazer', 'img/lazer.png'); // a faire
@@ -43,12 +46,12 @@ gameState.load.prototype = {
     this.game.load.audio('hitBrick', 'sounds/hit.wav');
 
     this.game.load.audio('music', 'sounds/music.wav');
-		
+    
 
-	},//preload
+  },//preload
 
-	create: function() {
-	 game.state.start('main');
+  create: function() {
+   game.state.start('main');
    }
   };//gameState.load.prototype
 
@@ -63,17 +66,17 @@ gameState.load.prototype = {
 
 gameState.main= function(){};
 gameState.main.prototype={
-	create: function() {
+  create: function() {
 
-		//activer arcade physics
-		this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    //activer arcade physics
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		// check les collisions aux murs sauf celui du bottom-> on perd une vie
+    // check les collisions aux murs sauf celui du bottom-> on perd une vie
     this.game.physics.arcade.checkCollision.up = true;
      this.game.physics.arcade.checkCollision.down = false;
 
     // crée une variable pour les touches
-  	//this.cursor = game.input.keyboard.createCursorKeys();
+    //this.cursor = game.input.keyboard.createCursorKeys();
 
     //son balle -> brique
     this.hitBrick = this.game.add.audio('hitBrick');
@@ -81,73 +84,77 @@ gameState.main.prototype={
     /*this.music = this.game.add.audio('music');
     this.music.play();//ne se repete pas*/
    
-		//créer le background à l'état de sprite
-		this.background = this.game.add.tileSprite(0,0,960,720, 'background');
-		this.background.width = this.game.width*4; 
-		this.background.height = this.game.height*4;
+    //créer le background à l'état de sprite
+    this.background = this.game.add.tileSprite(0,0,960,720, 'background');
+    this.background.width = this.game.width; 
+    this.background.height = this.game.height;
 
     this.arrow = this.game.add.sprite(250, 160, 'arrow');
     //this.game.physics.arcade.enable(this.arrow);
     //this.arrow.body.immovable = true;
-    this.arrow.anchor.setTo(0.1, 0.5); 
+    this.arrow.anchor.setTo(0.5, 0.5); 
 
-		//paddle
-		this.paddle = this.game.add.sprite(this.game.world.centerX, 650, 'paddle');
-		this.game.physics.arcade.enable(this.paddle);
-		this.paddle.body.immovable = true;
-		this.paddle.anchor.setTo(0.5, 0.5);
-		this.paddle.body.collideWorldBounds = true;
+    this.wall = this.game.add.sprite(210, 120, 'wall');
+    this.game.physics.arcade.enable(this.wall);
+    this.wall.body.immovable = true;
+
+    //paddle
+    this.paddle = this.game.add.sprite(this.game.world.centerX, 650, 'paddle');
+    this.game.physics.arcade.enable(this.paddle);
+    this.paddle.body.immovable = true;
+    this.paddle.anchor.setTo(0.5, 0.5);
+    this.paddle.body.collideWorldBounds = true;
 
     //particule A FAIRE..
     this.particule = this.game.add.group();
     this.particule.physicsBodyType = Phaser.Physics.ARCADE;
     this.particule.enableBody = true;
    
-		//brick
-		//this.brick = this.game.add.sprite(430,50,'brick');
-		this.brick = this.game.add.group();
-   	this.brick.enableBody = true;
+    //brick
+    //this.brick = this.game.add.sprite(430,50,'brick');
+    this.brick = this.game.add.group();
+    this.brick.enableBody = true;
     this.brick.physicsBodyType = Phaser.Physics.ARCADE;
 
 
-    	var bricks;
+      var bricks;
 
-   		for (var y = 0; y < 2; y++)// nombre de colonne en y
-    	{
-        	for (var x = 0; x < 9; x++) // nombre de colonne en x
-        	{
-           		bricks1 =this.
-           		brick.create(90 + (x * 90), 50 + (y * 30), 'brick' );// Position et espacement(y*nbre) des brick
-           		bricks1.body.bounce.set(1);
-           		bricks1.body.immovable = true;
-        	}
-    	}
+      for (var y = 0; y < 2; y++)// nombre de colonne en y
+      {
+          for (var x = 0; x < 9; x++) // nombre de colonne en x
+          {
+              bricks1 =this.
+              brick.create(90 + (x * 90), 50 + (y * 30), 'brick' );// Position et espacement(y*nbre) des brick
+              bricks1.body.bounce.set(1);
+              bricks1.body.immovable = true;
+          }
+      }
 
-    	var bricks1;
+      var bricks1;
 
-   		for (var y = 0; y < 3; y++)// nombre de colonne en y
-    	{
-        	for (var x = 0; x < 5; x++) // nombre de colonne en x
-        	{
-           		bricks1 =this.
-           		brick.create(450 + (x * 90), 125 + (y * 30), 'brick' );// Position et espacement des brick
-           		bricks1.body.bounce.set(1);
-           		bricks1.body.immovable = true;
-        	}
-    	}
+      for (var y = 0; y < 3; y++)// nombre de colonne en y
+      {
+          for (var x = 0; x < 5; x++) // nombre de colonne en x
+          {
+              bricks1 =this.
+              brick.create(450 + (x * 90), 125 + (y * 30), 'brick' );// Position et espacement des brick
+              bricks1.body.bounce.set(1);
+              bricks1.body.immovable = true;
+          }
+      }
 
-    	var bricks2;
+      var bricks2;
 
-   		for (var y = 0; y < 2; y++)// nombre de colonne en y
-    	{
-        	for (var x = 0; x < 9; x++) // nombre de colonne en x
-        	{
-           		bricks2 =this.
-           		brick.create(90 + (x * 90), 230 + (y * 30), 'brick' );// Position et espacement des brick
-           		bricks2.body.bounce.set(1);
-           		bricks2.body.immovable = true;
-        	}
-    	}
+      for (var y = 0; y < 2; y++)// nombre de colonne en y
+      {
+          for (var x = 0; x < 9; x++) // nombre de colonne en x
+          {
+              bricks2 =this.
+              brick.create(90 + (x * 90), 230 + (y * 30), 'brick' );// Position et espacement des brick
+              bricks2.body.bounce.set(1);
+              bricks2.body.immovable = true;
+          }
+      }
 
       var bricks3;
 
@@ -183,9 +190,9 @@ gameState.main.prototype={
     introText = this.game.add.text(350, 470, ' Click to start ', { font: "30px arial", fill: "#ffffff", align: "center" });
     //introText.anchor.setTo(0.5, 0.5);
 
-	},//create
+  },//create
 
-	releaseBall: function(){
+  releaseBall: function(){
      if (balleOnPaddle)
       {
         balleOnPaddle = false;
@@ -199,26 +206,26 @@ gameState.main.prototype={
         this.hitBrick.play();
       }*/
 
-	},//re
+  },//re
 
-	update: function(){
+  update: function(){
 
-		  //répétition du background
-		  this.background.tilePosition.x += 0.2; //le nombre est pour la vitesse
+      //répétition du background
+      this.background.tilePosition.x += 0.2; //le nombre est pour la vitesse
 
       this.arrow.rotation = this.game.physics.arcade.angleBetween(this.arrow, this.balle);
 
-    	/*// Mouvement via la souris methode 1
-		  this.paddle.body.x = this.game.input.worldX - this.paddle.body.width / 2;
+      /*// Mouvement via la souris methode 1
+      this.paddle.body.x = this.game.input.worldX - this.paddle.body.width / 2;
 
-    	if (this.paddle.body.x <= 0)
-    	{
-       	this.paddle.body.x = 0;
-   		}
-   		 else if (this.paddle.body.x > this.game.width - 100 )
-   	 	{
-   	   	this.paddle.body.x = this.game.width - 100;
-    	}*/
+      if (this.paddle.body.x <= 0)
+      {
+        this.paddle.body.x = 0;
+      }
+       else if (this.paddle.body.x > this.game.width - 100 )
+      {
+        this.paddle.body.x = this.game.width - 100;
+      }*/
 
 
       //mouvemet via ma souris methode 2
@@ -239,12 +246,18 @@ gameState.main.prototype={
         this.balle.body.x = this.paddle.x -10; //définit la position la balle sur la pallette 
       }
 
-    	//balle et la pallete 'collision'
-    	this.game.physics.arcade.collide(this.paddle, this.balle,this.paddleHit, null, this); // je devrai ajouter 1 nvelle fonction comme this.hit mais avc la balle et la palette
-    	// Collision de la balle et brick==> hit function
-		  this.game.physics.arcade.collide(this.balle, this.brick, this.hit, null, this);
+      //balle et la pallete 'collision'
+      this.game.physics.arcade.collide(this.paddle, this.balle,this.paddleHit, null, this); // je devrai ajouter 1 nvelle fonction comme this.hit mais avc la balle et la palette
+      //balle et la pallete 'collision'
+      this.game.physics.arcade.collide(this.balle, this.wall);
+      // Collision de la balle et brick==> hit function
+      this.game.physics.arcade.collide(this.balle, this.brick, this.hit, null, this);
 
-	},//update
+      if (this.score ==690){
+       this.restart();
+      }
+
+  },//update
 
   paddleHit: function(paddle, balle){
 
@@ -258,9 +271,9 @@ gameState.main.prototype={
 
   },//paddleHit
 
-	hit: function(balle, brick) {
-  		//Qd a balle touches les briques
-  		brick.kill();
+  hit: function(balle, brick) {
+      //Qd a balle touches les briques
+      brick.kill();
       //test--> essaye d'activer un son qd la balle touche les briques --> ok
       if (this.balle.event = brick.kill() ){
         this.hitBrick.play();
@@ -269,7 +282,7 @@ gameState.main.prototype={
       this.score += 10;
       this.scoreText.text = 'score: ' + this.score;
 
-	},//hit
+  },//hit
 
   ballePerdu: function(){
     lives--;
