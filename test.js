@@ -21,7 +21,7 @@ gameState.load.prototype = {
 		this.game.load.image('background', 'img/background2.png');
 
 		//paddle
-		this.game.load.atlasJSONHash('paddle', 'img/paddle0.png','data/paddle.json');
+		this.game.load.image('paddle', 'img/paddle.png');
 
 		//brik
 		this.game.load.image('brick', 'img/brik3.png');
@@ -96,9 +96,7 @@ gameState.main.prototype={
 		this.game.physics.arcade.enable(this.paddle);
 		this.paddle.body.immovable = true;
 		this.paddle.anchor.setTo(0.5, 0.5);
-		//this.paddle.body.collideWorldBounds = true;
-    this.paddle.animations.add('ok');
-    this.paddle.animations.play('ok',5, true);
+		this.paddle.body.collideWorldBounds = true;
 
     //particule A FAIRE..
     this.particule = this.game.add.group();
@@ -108,8 +106,9 @@ gameState.main.prototype={
 		//brick
 		//this.brick = this.game.add.sprite(430,50,'brick');
 		this.brick = this.game.add.group();
-   	this.brick.enableBody = true; 
+   	this.brick.enableBody = true;
     this.brick.physicsBodyType = Phaser.Physics.ARCADE;
+
 
     	var bricks;
 
@@ -134,7 +133,6 @@ gameState.main.prototype={
            		brick.create(450 + (x * 90), 125 + (y * 30), 'brick' );// Position et espacement des brick
            		bricks1.body.bounce.set(1);
            		bricks1.body.immovable = true;
-              
         	}
     	}
 
@@ -144,10 +142,10 @@ gameState.main.prototype={
     	{
         	for (var x = 0; x < 9; x++) // nombre de colonne en x
         	{
-           		bricks1 =this.
+           		bricks2 =this.
            		brick.create(90 + (x * 90), 230 + (y * 30), 'brick' );// Position et espacement des brick
-           		bricks1.body.bounce.set(1);
-           		bricks1.body.immovable = true;
+           		bricks2.body.bounce.set(1);
+           		bricks2.body.immovable = true;
         	}
     	}
 
@@ -157,10 +155,10 @@ gameState.main.prototype={
       {
           for (var x = 0; x < 6; x++) // nombre de colonne en x
           {
-              bricks1 =this.
+              bricks3 =this.
               brick.create(90 + (x * 90), 310 + (y * 30), 'brick' );// Position et espacement des brick
-              bricks1.body.bounce.set(1);
-              bricks1.body.immovable = true;
+              bricks3.body.bounce.set(1);
+              bricks3.body.immovable = true;
           }
       }
 
@@ -246,21 +244,16 @@ gameState.main.prototype={
     	// Collision de la balle et brick==> hit function
 		  this.game.physics.arcade.collide(this.balle, this.brick, this.hit, null, this);
 
-      //restart le jeu, apres avoir obtenu le score souhaité ( redemarre direct --> trouver comment faire pour mettre un timer)
-      if (this.score == 690){
-        this.restart();
-      }
-
 	},//update
 
   paddleHit: function(paddle, balle){
 
     //le sens du mouvement de la balle , vers la gauche ou vers la droite + augmentation de la vitesse ( test)
     if (this.balle.position.x < this.paddle.body.x + 50){
-      this.balle.body.velocity.x += -150 ;
+      this.balle.body.velocity.x += -150 * 1.1;
     }
     else if (this.balle.position.x > this.paddle.body.x - 50){
-      this.balle.body.velocity.x += 150 ;
+      this.balle.body.velocity.x += 150 * 1.1;
     }
 
   },//paddleHit
