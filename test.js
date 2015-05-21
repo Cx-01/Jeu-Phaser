@@ -42,7 +42,7 @@ gameState.load.prototype = {
     this.game.load.image('arrow', 'img/canon.png');
 
     //lazer
-    this.game.load.image('lazer', 'img/lazer.png'); // a faire
+    this.game.load.image('lazer', 'img/lazer.png'); 
 
 
     //son balle une fois les briques toucher
@@ -101,7 +101,17 @@ gameState.main.prototype={
     this.arrow.anchor.setTo(0.5, 0.5); 
 
     //life
-    this.life = this.game.add.sprite(915,360, 'life');
+    //this.life = this.game.add.sprite(915,360, 'life');
+    this.life = this. game.add.group();
+
+     for (var x = 0; x < 1; x++) 
+    {
+      for (var y = 0; y < 4; y++) 
+      {    
+        this.lives = this.life.create(915 + (x * 50), 250 + (y * 50), 'life' )
+        
+     }
+    };
 
     this.wall = this.game.add.sprite(210, 120, 'wall');
     this.game.physics.arcade.enable(this.wall);
@@ -193,7 +203,7 @@ gameState.main.prototype={
     this.balle.events.onOutOfBounds.add(this.ballePerdu, this);
 
     this.score = 0;
-    this.scoreText = this.game.add.text(10, 360, '0', { font: "20px arial", fill: "#00ffe4", align: "center" });
+    this.scoreText = this.game.add.text(10, 340, '0', { font: "20px arial", fill: "#00ffe4", align: "center" });
     livesText = this.game.add.text(780, 680, 'lives: 3', { font: "20px arial", fill: "#00ffe4", align: "center" });
     introText = this.game.add.text(350, 470, ' Click to start ', { font: "30px arial", fill: "#ffffff", align: "center" });
     //introText.anchor.setTo(0.5, 0.5);
